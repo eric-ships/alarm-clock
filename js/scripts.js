@@ -5,10 +5,13 @@ function AlarmClock(container) {
 
   var state = {
     alarm: false,
-    date: new Date()
+    date: new Date(),
+    settings: {
+      twelveHours: true
+    }
   }
 
-  var display, el, tickInterval;
+  var display;
 
   function checkAlarms() {
     if (state.alarm) {
@@ -17,16 +20,29 @@ function AlarmClock(container) {
   }
 
   function render() {
-    el = document.createElement('div')
-    el.className = 'alarm-clock'
+    var el = document.createElement('div')
+    var alarmsEl = document.createElement('div')
+    var settingsEl = document.createElement('div')
+
+    el.className = 'alarm-clock alarm-clock--loading'
+    alarmsEl.className = 'alarm-clock__alarms'
+    settingsEl.className = 'alarm-clock__settings'
 
     container.insertBefore(el, null)
+    el.insertBefore(alarmsEl, null)
+    el.insertBefore(settingsEl, null)
 
-    display = new Display(el, state.date)
+    display = new Display(el, state.date, state.settings)
+
+    new Settings(settingsEl, updateSettings)
+
+    setTimeout(function() {
+      el.classList.remove('alarm-clock--loading')
+    }, 1200)
   }
 
   function startClock() {
-    tickInterval = setInterval(tick, 1000)
+    setInterval(tick, 1000)
 
     tick()
   }
@@ -44,21 +60,24 @@ function AlarmClock(container) {
     }
   }
 
+  function updateSettings(key, newValue) {
+    state.settings[key] = newValue
+  }
+
   startClock()
   render()
 }
 
 // Display ---------------------------------------------------------------------
-function Display(container, date) {
+function Display(container, date, settings) {
   'use strict'
 
   var state = {
     date: date,
-    period: 'AM',
-    twelveHours: true
+    settings: settings
   }
 
-  var el, dateEl, hoursEl, minutesEl, periodEl, secondsEl
+  var dateEl, hoursEl, minutesEl, periodEl, secondsEl
 
   function getDateToStr() {
     return state.date.toDateString()
@@ -67,7 +86,7 @@ function Display(container, date) {
   function getHoursToStr() {
     var h = state.date.getHours()
 
-    if (state.twelveHours) {
+    if (state.settings.twelveHours) {
       if (h > 12) {
         h = h - 12
       }
@@ -87,7 +106,7 @@ function Display(container, date) {
   }
 
   function getPeriodToStr() {
-    if (state.twelveHours) {
+    if (state.settings.twelveHours) {
       return state.date.getHours() < 12 ? 'AM' : 'PM'
     }
 
@@ -105,22 +124,19 @@ function Display(container, date) {
   }
 
   function render() {
-    el = document.createElement('div')
-    el.className = 'display'
+    var el = document.createElement('div')
 
     dateEl = document.createElement('div')
-    dateEl.className = 'display__date'
-
     hoursEl = document.createElement('span')
-    hoursEl.className = 'display__hours'
-
     minutesEl = document.createElement('span')
-    minutesEl.className = 'display__minutes'
-
     periodEl = document.createElement('span')
-    periodEl.className = 'display__period'
-
     secondsEl = document.createElement('span')
+
+    el.className = 'display'
+    dateEl.className = 'display__date'
+    hoursEl.className = 'display__hours'
+    minutesEl.className = 'display__minutes'
+    periodEl.className = 'display__period'
     secondsEl.className = 'display__seconds'
 
     container.insertBefore(el, null)
@@ -145,15 +161,61 @@ function Display(container, date) {
     secondsEl.innerHTML = getSecondsToStr()
   }
 
+  function updateSettings(newSettings) {
+    state.settings = newSettings
+  }
+
   render()
 
   return {
-    setDate: setDate
+    setDate: setDate,
+    updateSettings: updateSettings
   }
 }
 
-// -----------------------------------------------------------------------------
+// Settings --------------------------------------------------------------------
+function Settings(container, updateSettings) {
+  'use strict'
 
+  function render() {
+    var el = document.createElement('div')
+    var iconEl = document.createElement('div')
+    var optionsEl = document.createElement('div')
+    var labelEl = document.createElement('label')
+    var checkboxEl = document.createElement('input')
+
+    checkboxEl.setAttribute('type', 'checkbox')
+
+    el.className = 'settings'
+    iconEl.className = 'settings__icon fa fa-cog'
+    optionsEl.className = 'settings__options'
+    labelEl.className = 'settings__label'
+    checkboxEl.className = 'settings__checkbox'
+
+    iconEl.onclick = toggle.bind(el)
+    checkboxEl.onclick = update.bind(checkboxEl)
+
+    labelEl.innerHTML = 'Use 24-hour clock'
+
+    container.insertBefore(el, null)
+    el.insertBefore(iconEl, null)
+    el.insertBefore(optionsEl, null)
+    optionsEl.insertBefore(labelEl, null)
+    optionsEl.insertBefore(checkboxEl, null)
+  }
+
+  function toggle() {
+    this.classList.toggle('settings--active')
+  }
+
+  function update() {
+    updateSettings('twelveHours', !this.checked)
+  }
+
+  render()
+}
+
+// -----------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', function(e) {
   new AlarmClock(document.getElementById('app'))
 })

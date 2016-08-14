@@ -1,14 +1,31 @@
+/* Alarm Clock ---------------------------------------------------------------*/
+.alarm-clock {
+  transition: opacity 0.4s ease-in;
+  opacity: 1;
+  visibility: visible;
+}
+
+.alarm-clock--loading {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.alarm-clock__settings {
+  float: right;
+  padding: 12px;
+}
+
 /* Display -------------------------------------------------------------------*/
 .display {
   color: rgba(0, 0, 0, .87);
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 8vw;
-  padding-top: 24vh;
+  font-size: 16vw;
+  padding-top: 32vh;
   text-align: center;
 }
 
 .display__date {
-  font-size: 2vw;
+  font-size: 4vw;
 }
 
 .display__hours {
@@ -18,12 +35,87 @@
 }
 
 .display__period {
-  margin: 0 0 0 2vw;
+  margin: 0 0 0 4vw;
 }
 
 .display__seconds {
 }
 
-@media () {
+@media (min-width: 800px) {
+
+.display {
+  font-size: 8vw;
+}
+
+.display__date {
+  font-size: 2vw;
+}
+
+.display__period {
+  margin: 0 0 0 2vw;
+}
+
+}
+
+/* Settings ------------------------------------------------------------------*/
+.settings {
+  color: rgba(0, 0, 0, .87);
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 36px;
+  /*transition: all 0.2s ease-in;*/
+}
+
+.settings--active .settings__icon {
+  color: black;
+}
+
+.settings--active .settings__options {
+  display: block;
+}
+
+.settings__checkbox {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: white;
+  border-radius: 3px;
+  border: 2px solid #2196f3;
+  cursor: pointer;
+  height: 36px;
+  margin: 0 0 0 12px;
+  vertical-align: -64%;
+  width: 36px;
+}
+
+.settings__checkbox:checked {
+  background: #2196f3;
+}
+
+.settings__icon {
+  color: rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  float: right;
+  font-size: 36px;
+}
+
+.settings__icon:hover {
+  color: black;
+}
+
+.settings__label {
+  font-size: 20px;
+}
+
+.settings__options {
+  display: none;
+  padding: 50px 0;
+}
+
+@media (min-width: 800px) {
+
+.settings {
+  /*font-size: 2vw;
+  padding: 0.25vw .75vw;*/
+}
 
 }
