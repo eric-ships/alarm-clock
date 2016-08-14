@@ -1,0 +1,29 @@
+/* Display -------------------------------------------------------------------*/
+.display {
+  color: rgba(0, 0, 0, .87);
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 8vw;
+  padding-top: 24vh;
+  text-align: center;
+}
+
+.display__date {
+  font-size: 2vw;
+}
+
+.display__hours {
+}
+
+.display__minutes {
+}
+
+.display__period {
+  margin: 0 0 0 2vw;
+}
+
+.display__seconds {
+}
+
+@media () {
+
+}
