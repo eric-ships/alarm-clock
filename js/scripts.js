@@ -68,6 +68,11 @@ function AlarmClock(container) {
   render()
 }
 
+// Alarms ----------------------------------------------------------------------
+function Alarms() {
+
+}
+
 // Display ---------------------------------------------------------------------
 function Display(container, date, settings) {
   'use strict'
@@ -161,15 +166,10 @@ function Display(container, date, settings) {
     secondsEl.innerHTML = getSecondsToStr()
   }
 
-  function updateSettings(newSettings) {
-    state.settings = newSettings
-  }
-
   render()
 
   return {
-    setDate: setDate,
-    updateSettings: updateSettings
+    setDate: setDate
   }
 }
 
