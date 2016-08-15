@@ -10,14 +10,79 @@
   visibility: hidden;
 }
 
+.alarm-clock__alarm {
+  float: right;
+  padding: 12px;
+}
+
 .alarm-clock__settings {
   float: right;
   padding: 12px;
 }
 
-/* Alarms ------------------------------------------------------------------- */
-.alarms {
+/* Alarm -------------------------------------------------------------------- */
+.alarm {
+  color: rgba(0, 0, 0, .87);
+  font-family: 'Source Sans Pro', sans-serif;
+}
 
+.alarm--active .alarm__icon {
+  color: #2196f3;
+}
+
+.alarm--active .alarm__options {
+  display: block;
+  position: absolute;
+  right: 20px;
+  top: 64px;
+}
+
+.alarm__checkbox {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: white;
+  border-radius: 3px;
+  border: 2px solid #2196f3;
+  cursor: pointer;
+  height: 36px;
+  margin: 0 0 0 12px;
+  outline: none !important;
+  vertical-align: -64%;
+  width: 36px;
+}
+
+.alarm__checkbox:checked {
+  background: #2196f3;
+}
+
+.alarm__icon {
+  color: rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  float: right;
+  font-size: 24px;
+}
+
+.alarm__icon:hover {
+  color: #2196f3;
+}
+
+.alarm__icon--active {
+  color: #2196f3;
+}
+
+.alarm__label {
+  font-size: 20px;
+}
+
+.alarm__options {
+  display: none;
+}
+
+.alarm__select {
+  font-size: 24px;
+  margin: 0 0 0 12px;
+  vertical-align: 18%;
 }
 
 /* Display -------------------------------------------------------------------*/
@@ -66,8 +131,6 @@
 .settings {
   color: rgba(0, 0, 0, .87);
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 36px;
-  /*transition: all 0.2s ease-in;*/
 }
 
 .settings--active .settings__icon {
@@ -76,6 +139,9 @@
 
 .settings--active .settings__options {
   display: block;
+  position: absolute;
+  right: 20px;
+  top: 64px;
 }
 
 .settings__checkbox {
@@ -101,7 +167,7 @@
   color: rgba(0, 0, 0, 0.12);
   cursor: pointer;
   float: right;
-  font-size: 36px;
+  font-size: 24px;
 }
 
 .settings__icon:hover {
@@ -114,5 +180,4 @@
 
 .settings__options {
   display: none;
-  padding: 50px 0;
 }
