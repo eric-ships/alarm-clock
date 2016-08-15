@@ -1,3 +1,3 @@
-# alarm-clock
+# Alarm Clock
 
-Does not support < IE9
+basic, minimal, vanilla JS
