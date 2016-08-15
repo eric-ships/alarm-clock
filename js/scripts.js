@@ -54,7 +54,6 @@ function AlarmClock(container) {
 
   function startClock() {
     setInterval(tick, 1000)
-
     tick()
   }
 
@@ -77,6 +76,8 @@ function AlarmClock(container) {
 
   function updateSettings(key, newValue) {
     state.settings[key] = newValue
+
+    updateDisplay()
   }
 
   startClock()
@@ -94,6 +95,8 @@ function Alarm(container, showOptions, updateAlarmSet) {
     period: 'AM'
   }
 
+  var el = document.createElement('div')
+
   function check(date) {
     var h, m
 
@@ -110,11 +113,10 @@ function Alarm(container, showOptions, updateAlarmSet) {
   }
 
   function hide() {
-    document.getElementsByClassName('alarm')[0].classList.remove('alarm--active')
+    el.classList.remove('alarm--active')
   }
 
   function render() {
-    var el = document.createElement('div')
     var iconEl = document.createElement('div')
     var optionsEl = document.createElement('div')
     var labelEl = document.createElement('label')
@@ -329,12 +331,13 @@ function Display(container, date, settings) {
 function Settings(container, showOptions, updateSettings) {
   'use strict'
 
+  var el = document.createElement('div')
+
   function hide() {
-    document.getElementsByClassName('settings')[0].classList.remove('settings--active')
+    el.classList.remove('settings--active')
   }
 
   function render() {
-    var el = document.createElement('div')
     var iconEl = document.createElement('div')
     var optionsEl = document.createElement('div')
     var labelEl = document.createElement('label')

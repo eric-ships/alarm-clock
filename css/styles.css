@@ -98,17 +98,8 @@
   font-size: 4vw;
 }
 
-.display__hours {
-}
-
-.display__minutes {
-}
-
 .display__period {
   margin: 0 0 0 4vw;
-}
-
-.display__seconds {
 }
 
 @media (min-width: 800px) {
