@@ -3,7 +3,7 @@
 function AlarmClock(container) {
   'use strict'
 
-  var alarm, display;
+  var alarm, display, settings;
 
   var state = {
     alarmSet: false,
@@ -14,11 +14,19 @@ function AlarmClock(container) {
   }
 
   function checkAlarm() {
-    console.log('checkAlarm')
-    console.log(state.alarmSet)
     if (state.alarmSet && alarm.check(state.date)) {
       alert('alarm!')
     }
+  }
+
+  function showOptions(type) {
+    if (type === 'alarm') {
+      settings.hide()
+
+      return
+    }
+
+    alarm.hide()
   }
 
   function render() {
@@ -36,8 +44,8 @@ function AlarmClock(container) {
 
     display = new Display(el, state.date, state.settings)
 
-    alarm = new Alarm(alarmsEl, updateAlarmSet)
-    new Settings(settingsEl, updateSettings)
+    alarm = new Alarm(alarmsEl, showOptions, updateAlarmSet)
+    settings = new Settings(settingsEl, showOptions, updateSettings)
 
     setTimeout(function() {
       el.classList.remove('alarm-clock--loading')
@@ -76,7 +84,7 @@ function AlarmClock(container) {
 }
 
 // Alarms ----------------------------------------------------------------------
-function Alarm(container, updateAlarmSet) {
+function Alarm(container, showOptions, updateAlarmSet) {
   'use strict'
 
   var state = {
@@ -89,8 +97,6 @@ function Alarm(container, updateAlarmSet) {
   function check(date) {
     var h, m
 
-    console.log('check')
-
     if (state.on) {
       h = state.period === 'AM' ? parseInt(state.hours) : parseInt(state.hours) + 12
       m = parseInt(state.minutes)
@@ -101,6 +107,10 @@ function Alarm(container, updateAlarmSet) {
     }
 
     return false
+  }
+
+  function hide() {
+    document.getElementsByClassName('alarm')[0].classList.remove('alarm--active')
   }
 
   function render() {
@@ -171,6 +181,7 @@ function Alarm(container, updateAlarmSet) {
   }
 
   function toggle() {
+    showOptions('alarm')
     this.classList.toggle('alarm--active')
   }
 
@@ -209,7 +220,8 @@ function Alarm(container, updateAlarmSet) {
   render()
 
   return {
-    check: check
+    check: check,
+    hide: hide
   }
 }
 
@@ -314,11 +326,11 @@ function Display(container, date, settings) {
 }
 
 // Settings --------------------------------------------------------------------
-function Settings(container, updateSettings) {
+function Settings(container, showOptions, updateSettings) {
   'use strict'
 
   function hide() {
-    this.classList.remove('settings--active')
+    document.getElementsByClassName('settings')[0].classList.remove('settings--active')
   }
 
   function render() {
@@ -349,6 +361,7 @@ function Settings(container, updateSettings) {
   }
 
   function toggle() {
+    showOptions('settings')
     this.classList.toggle('settings--active')
   }
 
