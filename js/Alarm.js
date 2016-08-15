@@ -71,7 +71,7 @@ function Alarm(container, showOptions, updateAlarmSet) {
       hoursOptionEl.appendChild(opt)
     }
 
-    for (var i = 0; i < 59; i++) {
+    for (var i = 0; i < 60; i++) {
       var opt = document.createElement('option')
       opt.value = i
       opt.innerHTML = i < 10 ? '0' + i : i
