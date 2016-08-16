@@ -45,7 +45,6 @@ function AlarmClock(container) {
     el.insertBefore(alarmsEl, null)
 
     display = new Display(el, state.date, state.settings)
-
     alarm = new Alarm(alarmsEl, showOptions, updateAlarmSet)
     settings = new Settings(settingsEl, showOptions, updateSettings)
 
@@ -72,7 +71,7 @@ function AlarmClock(container) {
 
   function updateDisplay() {
     if (display) {
-      display.setDate(state.date)
+      display.update(state.date, state.settings)
     }
   }
 

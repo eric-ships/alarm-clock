@@ -79,13 +79,10 @@ function Display(container, date, settings) {
     el.insertBefore(dateEl, null)
   }
 
-  function setDate(newDate) {
+  function update(newDate, newSettings) {
     state.date = newDate
+    state.settings = newSettings
 
-    update()
-  }
-
-  function update() {
     dateEl.innerHTML = getDateToStr()
     hoursEl.innerHTML = getHoursToStr()
     minutesEl.innerHTML = getMinutesToStr()
@@ -96,6 +93,6 @@ function Display(container, date, settings) {
   render()
 
   return {
-    setDate: setDate
+    update: update
   }
 }
