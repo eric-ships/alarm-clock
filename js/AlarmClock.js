@@ -50,7 +50,7 @@ function AlarmClock(container) {
 
     setTimeout(function() {
       el.classList.remove('alarm-clock--loading')
-    }, 1200)
+    }, 800)
   }
 
   function startClock() {
