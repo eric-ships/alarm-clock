@@ -1,0 +1,10 @@
+{
+  "name": "Eric's Alarm Clock",
+  "description": "Eric's Alarm Clock",
+  "version": "0.0.1",
+  "incognito": "split",
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
+  "manifest_version": 2
+}
